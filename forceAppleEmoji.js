@@ -50,7 +50,7 @@
             padding-bottom: 50px;
         }
       </style>
-      <a href="https://zachsnow.github.io/slinger/">Slinger v${version} &raquo;</a>
+      <a href="https://zachsnow.github.io/slinger/">Pingerz v${version} &raquo;</a>
     </div>
   `);
   $('#slinger').remove();
