@@ -1,8 +1,8 @@
 (function(){
   'use strict';
 
-  var debug = false;
-  var version = "0.2.0";
+  var debug = true;
+  var version = "0.3.0";
 
   // Because sometimes things break and you can't tell if the script
   // is even loading in the Slack app.
@@ -55,58 +55,4 @@
   `);
   $('#slinger').remove();
   $('body').append($slinger);
-
-  /////////////////////////////////////////////////////////////////////
-  // Extra shortcuts.
-  /////////////////////////////////////////////////////////////////////
-  console.log('slinger: binding shortcuts...');
-
-  // leave: leave the current room; like /leave but tries to verify
-  // that you actually want to leave in some cases.
-  var leave = function(){
-    var model = TS.shared.legacyGetActiveModelOb();
-    if(!model){
-      console.log('slinger: leave: no active model');
-      return;
-    }
-    if(model.is_im){
-      console.log('slinger: leave: leaving current IM');
-      TS.client.ui.maybePromptForClosingIm(model.id)
-    }
-    else if(model.is_mpim){
-      console.log('slinger: leave: leaving current MPIM');
-      TS.mpims.closeMpim(model.id);
-    }
-    else if(model.is_group){
-      console.log('slinger: leave: leaving current group');
-      TS.client.ui.maybePromptForClosingGroup(model.id);
-    }
-    else if(model.is_channel){
-      console.log('slinger: leave: leaving current channel');
-      TS.channels.leave(model.id);
-    }
-    else {
-      console.log('slinger: leave: unknown model type', model);
-    }
-  };
-
-  // Bind Command+W to leave, except when we're not really
-  // in the Slack app.
-  var bindings = {
-    87: {
-      func: leave,
-      no_shift: true
-    }
-  };
-
-  // `TS.key_triggers` no longer has a public interface for adding
-  // shortcuts, so we have to hack it in.
-  var getFromCode = TS.key_triggers.getFromCode;
-  TS.key_triggers.getFromCode = function t(i){
-    var ii = TS.interop.i18n.keyCodeEquivalent(i, {useReverseMap:true}).toString();
-    var binding = bindings[ii];
-    return binding || getFromCode(i);
-  };
-
-  console.log('slinger: loaded');
 })();
