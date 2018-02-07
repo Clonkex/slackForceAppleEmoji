@@ -1,7 +1,7 @@
 (function(){
   'use strict';
   
-  var debug = false;
+  var debug = true;
   var version = "0.1.0";
   
   if(debug){
