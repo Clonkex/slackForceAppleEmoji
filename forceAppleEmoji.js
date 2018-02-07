@@ -1,6 +1,15 @@
 (function(){
   'use strict';
   
+  var debug = false;
+  var version = "0.1.0";
+  
+  if(debug){
+    alert('force loader thing version ' + version);
+  }
+  
+  var inApp = window.TSSSB && window.TSSSB.env && window.TSSSB.envdesktop_app_version;
+  
   console.log('replacing gross google emojis with apple emojis');
   
   var slackForceAppleEmoji = $(`
