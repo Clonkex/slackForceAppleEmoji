@@ -11,8 +11,8 @@
   console.log('replacing gross google emojis with apple emojis');
   
   //if for some reason your slack is still using the old emoji system, don't replace it
-  if($('.emoji-outer').css('background-image').indexOf('slack-resources') !== -1)
-    return;
+  //if($('.emoji-outer').css('background-image').indexOf('slack-resources') !== -1)
+  //  return;
   
   var slackForceAppleEmoji = $(`
     <div id="slackForceAppleEmoji" style="display: none;">
